@@ -28,7 +28,7 @@ func (b *Exoplanets) fetch() {
 
 	log.Printf("Fetching exoplanets")
 
-	rows, err := b.DB.Query(`SELECT name, mass, period, radius FROM exoplanet ORDER BY name ASC`)
+	rows, err := b.DB.Query(`SELECT name, mass, radius, period FROM exoplanet ORDER BY name ASC`)
 	if err != nil {
 		log.Printf("Unable to select exoplanet table:", err)
 		return

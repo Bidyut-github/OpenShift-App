@@ -47,12 +47,12 @@ easy to refresh the data: `python3 fetch_planets.py > seed.go`
 A Makefile exists to avoid the burden of remembering things.
 
   * `make build`: Builds a container
-  * `make`: Gofmt, build, and run (locally).
+  * `make`: Execute gofmt, build, and run (locally).
 
 
 ## Pushing
 
-First log podman in to quay.io/redhattraining and verify the `version` and `repo` variables in the Makefile.
+First log podman in to quay.io/redhattraining and verify the `VERSION` and `REPO` variables in the Makefile.
 
 Once that's all good: `make tag push`.
 
@@ -63,6 +63,6 @@ There are a few helper tasks in the Makefile that might be of use:
 
   * `make pg-up`: Starts a PostgreSQL container.
   * `make pg-down`: Completely stops (rm -f) PostgreSQL.
-  * `make run`: Runs the app (you'll need to build it first) with DB_HOST to the ip
+  * `make run`: Runs the app (you'll need to build it first) with `DB_HOST` to the ip
   of the postgres container.
-  * `make`: Gofmt, build, and run (locally).
+  * `make`: Execute gofmt, build, and run (locally).

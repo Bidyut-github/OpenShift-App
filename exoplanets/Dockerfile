@@ -1,33 +1,45 @@
+#	Containerfile
+
+# Be sure to match the 'builder' and 'app' image base version (both 'ubi8' or 'ubi9')
+
+# About the 'version' LABEL
+# version="v1.1.0" is based on 'ubi8'
+
+################################################################################
 # -- Build stage --
 
-FROM registry.redhat.io/ubi8/go-toolset:1.12.8 AS builder
+FROM	registry.redhat.io/ubi8/go-toolset:1.18.10-1	AS builder
 
-RUN mkdir -p $HOME/go/src/exoplanets
-WORKDIR $HOME/go/src/exoplanets
-COPY *.go .
+ENV	CGO_ENABLED=1
 
-RUN go get -u \
-      github.com/gorilla/mux \
-      github.com/lib/pq && \
-    go build
+COPY	*.go .
 
+RUN	go mod init exoplanets && \
+	go mod tidy && \
+	go get -u \
+	  github.com/gorilla/mux@latest \
+	  github.com/lib/pq@latest && \
+	go build && \
+	file exoplanets
 
+################################################################################
 # -- App stage --
 
-FROM registry.redhat.io/ubi8-minimal:8.0-213
-LABEL maintainer="jbirchler@redhat.com" \
-      version="v1.0.0"
+FROM	registry.redhat.io/ubi8/ubi-minimal:8.7-1107	AS app
 
-WORKDIR /home
+ARG	VERSION
 
-COPY --from=builder /opt/app-root/src/go/src/exoplanets/exoplanets .
-COPY template.html .
+LABEL	version=${VERSION}
 
-RUN chmod 440 template.html && \
-    chgrp -R 0 . && \
-    chmod -R g=u .
+WORKDIR	/srv
 
-USER 1001
-EXPOSE 8080
+COPY	--from=builder --chmod=0755 /opt/app-root/src/exoplanets .
+COPY	--chmod=0440 template.html .
 
-CMD ["./exoplanets"]
+RUN	chgrp -R 0 . && \
+	chmod -R g=u .
+
+USER	1001
+EXPOSE	8080
+
+CMD	["./exoplanets"]

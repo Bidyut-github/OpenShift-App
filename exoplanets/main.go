@@ -6,11 +6,18 @@ import (
 	"os"
 )
 
+func version() (v string) {
+	v = "v1.1.0"
+	return
+}
+
 func main() {
 	var (
 		db         *sql.DB
 		exoplanets *Exoplanets
 	)
+
+	log.Printf("Starting exoplanets %s\n", version())
 
 	if os.Getenv("DB_HOST") != "" {
 		db = dbConnect(dbInfo{

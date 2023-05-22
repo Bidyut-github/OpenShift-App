@@ -1,57 +1,59 @@
 <!doctype html>
 <html lang="en">
-
 <head>
   <meta charset="utf-8">
-  <title>Exoplanets</title>
+  <title>Exoplanets - {{ .AppVersion }}</title>
   <style>
     body {
       margin: 2em;
       font-size: 100%;
       line-height: 1.5;
-      background-color: black;
-      color: white;
-    }
-
-    h1 {
-      color: #fc0;
-    }
-
-    section h1 {
-      color: #09c;
     }
 
     table {
-      border: solid 1px #039;
+      border: solid 1px blue;
       border-collapse: collapse;
       border-spacing: 0;
     }
 
-    table thead {
-      background-color: #039;
+    table caption {
+      color: dodgerblue;
+      font-size: x-large;
     }
 
-    td, th {
-      padding: 0.2em 0.5em;
+    table thead {
+      background-color: darkblue;
+      color: lightgray;
+    }
+
+    td, th
+    {
+      padding: 0.5em;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: bold;
     }
   </style>
 </head>
-
 <body>
-
-  <h1>Exoplanets</h1>
+  <h1>Exoplanets - {{ .AppVersion }}</h1>
 
   <p>
     The planets listed here are a small subset of the known planets found outside of our solar system.
-    Mass and radius are listed in "Jupiter mass" and "Jupiter radius" units. The orbital period is measured in Earth days.
-    The full dataset is available from the <a href="https://github.com/openexoplanetcatalogue/open_exoplanet_catalogue/">Open Exoplanet Catalogue</a>.
   </p>
 
-  {{range .}}
-  <section>
-    <h1>{{.Name}}</h1>
+  <ul>
+    <li>Mass and radius are listed in "<i>Jupiter mass</i>" and "<i>Jupiter radius</i>" units.</li>
+    <li>The orbital period is measured in "<i>Earth days</i>".</li>
+  </ul>
 
+  <p>
+    The full dataset is available from the <a href="https://github.com/openexoplanetcatalogue/open_exoplanet_catalogue/">Open Exoplanet Catalogue</a>.
+  </p>
+  {{ range .ExoplanetList }}
+  <section>
     <table>
+      <caption>{{ .Name }}</caption>
       <thead>
         <tr>
           <th>Mass</th>
@@ -61,15 +63,14 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{.Mass}}</td>
-          <td>{{.Radius}}</td>
-          <td>{{.Period}}</td>
+          <td>{{ .Mass }}</td>
+          <td>{{ .Radius }}</td>
+          <td>{{ .Period }}</td>
         </tr>
       </tbody>
+      <tfoot></tfoot>
     </table>
   </section>
-  {{end}}
-
+  {{ end }}
 </body>
-
 </html>
