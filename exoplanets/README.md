@@ -11,6 +11,15 @@ datasets and templates proved more complex than the value.
 The exoplanets application does not include the "memory leak" feature that is
 available in the books application.
 
+## Repository and container image tags
+
+- The tag `v1.1.1` points to the _next_ version of the application.
+- The tag `v1.1.0` points to the _current_ version of the application.
+- The tag `v1.0`   points to the _legacy_ version of the application.
+
+These tags correspond to the container images released on quay:
+
+- <https://quay.io/repository/redhattraining/exoplanets?tab=tags>
 
 ## Table Drop Warning
 
