@@ -2,8 +2,9 @@ SHELL=/bin/bash
 
 # version v1.0 is the legacy app version
 # version v1.1.0 has "white background" and is based on ubi8 (check Containerfile)
+# version v1.1.1 has "black background" and is based on ubi8 (check Containerfile)
 
-VERSION ?= v1.1.0
+VERSION ?= v1.1.1
 REPO ?= quay.io/redhattraining
 
 LOCAL_ADDRESS = $(shell hostname -I | awk '{print $$2}')
@@ -53,7 +54,8 @@ push:
 	# podman push ${REPO}/exoplanets:latest
 	podman push ${REPO}/exoplanets:${VERSION}
 
-POSTGRES_IMAGE=registry.redhat.io/rhel8/postgresql-13:1-118
+# POSTGRES_IMAGE=registry.redhat.io/rhel8/postgresql-13:1-118
+POSTGRES_IMAGE=registry.redhat.io/rhel9/postgresql-13:1-119
 
 pg:	pg-down pg-up
 

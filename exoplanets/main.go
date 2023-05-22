@@ -7,7 +7,7 @@ import (
 )
 
 func version() (v string) {
-	v = "v1.1.0"
+	v = "v1.1.1"
 	return
 }
 

@@ -4,11 +4,13 @@
 
 # About the 'version' LABEL
 # version="v1.1.0" is based on 'ubi8'
+# version="v1.1.1" is based on 'ubi9'
 
 ################################################################################
 # -- Build stage --
 
-FROM	registry.redhat.io/ubi8/go-toolset:1.18.10-1	AS builder
+# FROM	registry.redhat.io/ubi8/go-toolset:1.18.10-1	AS builder
+FROM	registry.redhat.io/ubi9/go-toolset:1.18.10-4	AS builder
 
 ENV	CGO_ENABLED=1
 
@@ -25,7 +27,8 @@ RUN	go mod init exoplanets && \
 ################################################################################
 # -- App stage --
 
-FROM	registry.redhat.io/ubi8/ubi-minimal:8.7-1107	AS app
+# FROM	registry.redhat.io/ubi8/ubi-minimal:8.7-1107	AS app
+FROM	registry.redhat.io/ubi9/ubi-minimal:9.1.0-1829	AS app
 
 ARG	VERSION
 
